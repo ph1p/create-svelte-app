@@ -60,7 +60,7 @@ yargs
 
         server.listen(port);
 
-        console.log(`\nSvelte app run on port http://localhost:${port} !\n`);
+        console.log(`\nSvelte app runs on port http://localhost:${port} !\n`);
       } else {
         webpack(config, (err, stats) => {
           if (err || stats.hasErrors()) {
