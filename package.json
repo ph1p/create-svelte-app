@@ -1,8 +1,8 @@
 {
-  "name": "svelte-cli",
+  "name": "create-svelte-app",
   "version": "0.0.1",
   "bin": {
-    "svelte-cli": "./bin/svelte-cli"
+    "svelte": "./bin/svelte"
   },
   "keywords": [],
   "author": "",
