@@ -1,13 +1,12 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 module.exports = {
-  entry: [!prod && path.resolve(__dirname, './node_modules/webpack-hot-middleware/client')],
+  entry: [],
   resolveLoader: {
     modules: [path.resolve(__dirname, './node_modules')]
   },
@@ -41,8 +40,6 @@ module.exports = {
   },
   mode,
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),

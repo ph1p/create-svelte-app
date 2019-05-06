@@ -2,11 +2,8 @@
 const yargs = require('yargs');
 const path = require('path');
 const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
+const webpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../webpack.config');
-
-const express = require('express');
-const app = express();
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -45,22 +42,25 @@ yargs
       };
 
       if (isDevServer) {
+        const options = {
+          hot: true,
+          host: 'localhost',
+          port,
+          noInfo: true,
+          contentBase: path.resolve(process.cwd(), 'dist'),
+          stats: {
+            all: false
+          }
+        };
+
+        webpackDevServer.addDevServerEntrypoints(config, options);
+
         const compiler = webpack(config);
+        const server = new webpackDevServer(compiler, options);
 
-        app.use(
-          middleware(compiler, {
-            noInfo: true,
-            // publicPath: webpackConfig.output.publicPath,
-            stats: {
-              all: false
-            }
-          })
-        );
-        app.use(require('webpack-hot-middleware')(compiler));
+        server.listen(port);
 
-        app.listen(port, () =>
-          console.log(`\nSvelte app run on port http://localhost:${port} !\n`)
-        );
+        console.log(`\nSvelte app run on port http://localhost:${port} !\n`);
       } else {
         webpack(config, (err, stats) => {
           if (err || stats.hasErrors()) {
