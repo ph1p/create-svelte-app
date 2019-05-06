@@ -1,0 +1,25 @@
+{
+  "name": "svelte-cli",
+  "version": "0.0.1",
+  "bin": {
+    "svelte-cli": "./bin/svelte-cli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^2.1.1",
+    "express": "^4.16.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "mini-css-extract-plugin": "^0.6.0",
+    "style-loader": "^0.23.1",
+    "svelte": "^3.2.0",
+    "svelte-loader": "^2.13.3",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-middleware": "^3.6.2",
+    "webpack-hot-middleware": "^2.24.4",
+    "yargs": "^13.2.2"
+  }
+}
