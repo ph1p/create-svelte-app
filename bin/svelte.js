@@ -3,20 +3,21 @@ const yargs = require('yargs');
 const path = require('path');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
+const fs = require('fs');
 const webpackConfig = require('../webpack.config');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 yargs
-  .usage('$0 <cmd> [args]')
+  .usage('create-svelte-app <cmd> [args]')
   .command({
     command: '[options]',
     aliases: ['$0'],
     handler: argv => {
       let entry = argv.entry;
       let isSvelteFile = argv.entry && argv.entry.indexOf('.svelte') >= 0;
-      let isDevServer = argv.serve;
+      let isDevServer = !argv.build;
       let port = argv.port || 3000;
 
       let svelteAlias = {};
@@ -26,7 +27,12 @@ yargs
         svelteAlias = {
           SvelteEntry: path.resolve(process.cwd(), entry)
         };
-        entry = path.resolve(__dirname, '../main.js');
+
+        if (!fs.existsSync(path.resolve(process.cwd(), './main.js'))) {
+          entry = path.resolve(__dirname, '../main.js');
+        } else {
+          entry = path.resolve(process.cwd(), './main.js');
+        }
       }
 
       const config = {
@@ -47,6 +53,8 @@ yargs
           host: 'localhost',
           port,
           noInfo: true,
+          watchContentBase: true,
+          compress: true,
           contentBase: path.resolve(process.cwd(), 'dist'),
           stats: {
             all: false
@@ -93,10 +101,10 @@ yargs
           desc: 'dev server port',
           type: 'number'
         },
-        serve: {
-          alias: 's',
+        build: {
+          alias: 'b',
           default: false,
-          desc: 'start as dev server',
+          desc: 'build project',
           type: 'boolean'
         }
       });
