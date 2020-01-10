@@ -1,7 +1,7 @@
 # create-svelte-app
 
 ```bash
-npm i create-svelte-app
+npm i create-svelte-app -g
 
 # yarn
 yarn add global create-svelte-app
@@ -37,5 +37,5 @@ Options:
   --entry, -e    Entry file                  [string] [default: "./src/main.js"]
   --port, -p     dev server port                        [number] [default: 3000]
   --build, -b    build project                        [boolean] [default: false]
-```
+  --create, -c   build project           [string] [default: "my-svelte-project"]
 ```
