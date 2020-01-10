@@ -10,7 +10,7 @@ const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 yargs
-  .usage('create-svelte-app <cmd> [args]')
+  .usage('svelte <cmd> [args]')
   .command({
     command: '[options]',
     aliases: ['$0'],
