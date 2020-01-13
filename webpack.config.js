@@ -1,53 +1,68 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
-const mode = process.env.NODE_ENV || 'development';
-const prod = mode === 'production';
+let mode = process.env.NODE_ENV || 'development';
 
-module.exports = {
-  entry: [],
-  resolveLoader: {
-    modules: [path.resolve(__dirname, './node_modules')]
-  },
-  resolve: {
-    extensions: ['.mjs', '.js', '.svelte'],
-    modules: [path.resolve(__dirname, './node_modules')],
-    mainFields: ['svelte', 'browser', 'module', 'main']
-  },
-  output: {
-    path: path.resolve(process.cwd(), 'dist'),
-    filename: '[name].js',
-    chunkFilename: '[name].[id].js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.svelte$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'svelte-loader',
-          options: {
-            emitCss: true,
-            hotReload: true
+module.exports = (cb, config) => {
+
+  if (config.mode) {
+    mode = config.mode;
+  }
+
+  const prod = mode === 'production';
+
+  return cb({
+    mode,
+    entry: [],
+    optimization: prod ? {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin(),
+      ],
+    } : {},
+    resolveLoader: {
+      modules: [path.resolve(__dirname, './node_modules')]
+    },
+    resolve: {
+      extensions: ['.mjs', '.js', '.svelte'],
+      modules: [path.resolve(__dirname, './node_modules')],
+      mainFields: ['svelte', 'browser', 'module', 'main']
+    },
+    output: {
+      path: path.resolve(process.cwd(), 'dist'),
+      filename: '[name].js',
+      chunkFilename: '[name].[id].js'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.svelte$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+              emitCss: true,
+              hotReload: true
+            }
           }
+        },
+        {
+          test: /\.css$/,
+          use: [prod ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader']
         }
-      },
-      {
-        test: /\.css$/,
-        use: [prod ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader']
-      }
-    ]
-  },
-  mode,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Svelte App',
-      template: path.resolve(__dirname, './public/index.html')
-    })
-  ],
-  devtool: prod ? false : 'source-map'
+      ]
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: '[name].css'
+      }),
+      new HtmlWebpackPlugin({
+        title: 'Svelte App',
+        template: path.resolve(__dirname, './public/index.html')
+      })
+    ],
+    devtool: prod ? false : 'source-map'
+  })
 };
