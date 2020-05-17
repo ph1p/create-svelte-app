@@ -1,18 +1,18 @@
-const webpack = require("webpack");
-const createWebpackConfig = require("../utils/create-webpack-config");
+const webpack = require('webpack');
+const createWebpackConfig = require('../utils/create-webpack-config');
 
 module.exports = (cmd, { mode }) => {
   if (!cmd) {
-    cmd = "./src/main.js";
+    cmd = './src/main.js';
   }
 
   const config = createWebpackConfig(cmd, {
-    mode
+    mode,
   });
 
   webpack(config, (err, stats) => {
     if (err || stats.hasErrors()) {
-      console.log("Error");
+      console.log('Error');
     }
 
     console.log(
@@ -21,7 +21,7 @@ module.exports = (cmd, { mode }) => {
         colors: true,
         entrypoints: false,
         children: false,
-        modules: false
+        modules: false,
       })
     );
   });

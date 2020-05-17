@@ -22,10 +22,7 @@ src/
   main.js
 ```
 
-```bash
-svelte # serve project
-svelte build # build project
-```
+If you do not want this behavior, you can simple run `svelte create` and choose a template.
 
 ### svelte help
 
@@ -39,4 +36,41 @@ Commands:
   serve [options] [path]   Serve project/file
   create [options] [path]  Create project
   build [options] [path]   Build project (default entrypoint is ./src/main.js
+```
+
+### svelte serve or svelte
+
+```bash
+Usage: svelte serve [options] [path]
+
+Serve project/file
+
+Options:
+  -m, --mode <type>  Set mode (development|production) (default: "development")
+  -h, --help         display help for command
+```
+
+### svelte build
+
+```bash
+Usage: svelte build [options] [path]
+
+Build project (default entrypoint is ./src/main.js
+
+Options:
+  -m, --mode <type>  Set mode (development|production) (default: "production")
+  -h, --help         display help for command
+```
+
+### svelte create
+
+```bash
+Usage: svelte create [options] [path]
+
+Create project
+
+Options:
+  -f, --force              Overwrite existing project (default: false)
+  -tpl, --template [name]  Set a template (default: "")
+  -h, --help               display help for command
 ```

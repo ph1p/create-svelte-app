@@ -1,29 +1,29 @@
-const path = require("path");
-const fs = require("fs");
-const webpack = require("webpack");
-const webpackDevServer = require("webpack-dev-server");
-const createWebpackConfig = require("../utils/create-webpack-config");
+const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
+const webpackDevServer = require('webpack-dev-server');
+const createWebpackConfig = require('../utils/create-webpack-config');
 
 module.exports = (filepath, { mode }) => {
   if (!fs.existsSync(filepath)) {
-    console.error(filepath + " does not exist!");
+    console.error('Please make sure "' + filepath + '" exists!');
     return;
   }
   const config = createWebpackConfig(filepath, {
-    mode
+    mode,
   });
 
   const devOptions = {
     hot: true,
-    host: "localhost",
+    host: 'localhost',
     port: 3000,
     noInfo: true,
     watchContentBase: true,
     compress: true,
-    contentBase: path.resolve(process.cwd(), "dist"),
+    contentBase: path.resolve(process.cwd(), 'dist'),
     stats: {
-      all: false
-    }
+      all: false,
+    },
   };
 
   webpackDevServer.addDevServerEntrypoints(config, devOptions);
