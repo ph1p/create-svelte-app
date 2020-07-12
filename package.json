@@ -2,7 +2,8 @@
   "name": "create-svelte-app",
   "version": "1.0.1",
   "bin": {
-    "svelte": "./bin/svelte.js"
+    "svelte": "./bin/svelte.js",
+    "create-svelte-app": "./bin/svelte.js"
   },
   "keywords": [],
   "author": "",
