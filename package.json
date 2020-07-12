@@ -1,6 +1,6 @@
 {
   "name": "create-svelte-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "bin": {
     "svelte": "./bin/svelte.js",
     "create-svelte-app": "./bin/svelte.js"
