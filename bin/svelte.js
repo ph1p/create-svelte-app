@@ -11,22 +11,25 @@ const prod = mode === 'production';
 
 program
   .version('0.0.1')
-  .description('a simple CLI to manage and develop svelte apps')
-  .option('-p, --port <number>', 'Application port', 3000);
+  .description('a simple CLI to manage and develop svelte apps');
 
 program
   .command('serve [path]')
-  .description('Serve project/file')
+  .description('Serve a project or a single .svelte file (default entrypoint is ./src/main.js)')
   .option(
     '-m, --mode <type>',
     'Set mode (development|production)',
     'development'
   )
+  .option(
+    '--props <string>',
+    'Set props JSON, if you serve a .svelte file',
+    '{}'
+  )
+  .option('-ce, --custom-element', 'Serve as custom element', false)
+  .option('-t, --title <string>', 'HTML-Page Title', 'Svelte-App')
+  .option('-p, --port <number>', 'Application port', 3000)
   .action(function (path, env) {
-    if (!path) {
-      path = './src/main.js';
-    }
-
     serveCommand(path, env);
   });
 
@@ -36,26 +39,29 @@ program
   .option('-f, --force', 'Overwrite existing project', false)
   .option('-tpl, --template [name]', 'Set a template', '')
   .action(function (cmd, env) {
-    createCommand(cmd, env);
+    createCommand(path, env);
   });
 
 program
   .command('build [path]')
-  .description('Build project (default entrypoint is ./src/main.js')
+  .description('Build project (default entrypoint is ./src/main.js)')
   .option(
     '-m, --mode <type>',
     'Set mode (development|production)',
     'production'
   )
-  .action(function (cmd, env) {
-    buildCommand(cmd, env);
+  .option(
+    '--props <string>',
+    'Set props JSON, if you serve a .svelte file',
+    '{}'
+  )
+  .option('-ce, --custom-element', 'Build as custom element', false)
+  .option('-t, --title <string>', 'HTML-Page Title', 'Svelte-App')
+  .action(function (path, env) {
+    buildCommand(path, env);
   });
 
-if (
-  !['create', 'build', 'serve', 'help', '--help'].includes(
-    process.argv[process.argv.length - 1]
-  )
-) {
+if (!['create', 'build', 'serve', 'help', '--help'].includes(process.argv[2])) {
   process.argv.splice(2, 0, 'serve');
 }
 
