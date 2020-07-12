@@ -1,5 +1,7 @@
 # create-svelte-app
 
+This CLI provides you a way to create, build and serve your svelte app. Under the hood `webpack` is used for all operations.
+
 ```bash
 npm i create-svelte-app -g
 
@@ -13,8 +15,7 @@ yarn create svelte-app
 ### How to use
 
 Run all commands inside a `svelte` project.
-
-You do not need a bundler anymore. `create-svelte-app` serves and builds the project for you.
+You don't need a bundler anymore, because as I said before, it already has a preconfigured webpack.
 
 **Example structure:**
 
@@ -40,6 +41,16 @@ And if you want to build a project with this `.svelte` file, run:
 ```bash
 svelte serve ./build.svelte --props '{"prop":"hi there!"}'
 ```
+
+### Custom Elements
+
+This CLI makes it easy for you to create a custom element. Just run:
+
+```bash
+svelte build FILE_PATH.svelte --custom-element
+```
+
+The CLI creates the javascript file, and you can use your custom tag that you specified within your `<svelte:options tag="your-custom-element"/>` tag.
 
 ### svelte help
 
