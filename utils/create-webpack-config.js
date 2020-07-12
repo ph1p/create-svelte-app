@@ -12,11 +12,8 @@ module.exports = (entry, customConfig = {}, props) => {
   console.log('Entry:', entry);
 
   // if is svelte file
-  if (
-    isSvelteFile &&
-    !fs.existsSync(path.resolve(process.cwd(), './main.js'))
-  ) {
-    const entryContent = fs.readFileSync(path.resolve(process.cwd(), entry), {
+  if (isSvelteFile && !fs.existsSync('./main.js')) {
+    const entryContent = fs.readFileSync(entry, {
       encoding: 'utf-8',
     });
 
@@ -38,8 +35,6 @@ module.exports = (entry, customConfig = {}, props) => {
           }`,
       })
     );
-  } else {
-    entry = path.resolve(process.cwd(), entry);
   }
 
   return webpackConfig(

@@ -1,4 +1,3 @@
-const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
@@ -40,7 +39,7 @@ module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
     noInfo: true,
     watchContentBase: true,
     compress: true,
-    contentBase: path.resolve(process.cwd(), 'dist'),
+    contentBase: './dist',
     stats: {
       all: false,
     },
