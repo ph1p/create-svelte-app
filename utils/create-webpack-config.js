@@ -17,11 +17,13 @@ module.exports = (entry, customConfig = {}, props) => {
       encoding: 'utf-8',
     });
 
+    console.log(entry, entryContent);
+
     entry = './entry.js';
     plugins.push(
       new VirtualModulesPlugin({
         './svelte-cli-entry.svelte': entryContent,
-        './entry.js': `import App from "CreateSvelteApp";
+        './entry.js': `import App from "./svelte-cli-entry.svelte";
           ${
             customConfig.mode === 'production' && customConfig.customElement
               ? ''
@@ -45,7 +47,6 @@ module.exports = (entry, customConfig = {}, props) => {
       resolve: {
         ...config.resolve,
         alias: {
-          CreateSvelteApp: './svelte-cli-entry.svelte',
           svelte: path.resolve(__dirname, '../node_modules/svelte'),
         },
       },
