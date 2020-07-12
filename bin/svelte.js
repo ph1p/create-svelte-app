@@ -38,7 +38,7 @@ program
   .description('Create project')
   .option('-f, --force', 'Overwrite existing project', false)
   .option('-tpl, --template [name]', 'Set a template', '')
-  .action(function (cmd, env) {
+  .action(function (path, env) {
     createCommand(path, env);
   });
 
