@@ -17,8 +17,6 @@ module.exports = (entry, customConfig = {}, props) => {
       encoding: 'utf-8',
     });
 
-    console.log(entry, entryContent);
-
     entry = './entry.js';
     plugins.push(
       new VirtualModulesPlugin({
