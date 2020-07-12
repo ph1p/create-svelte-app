@@ -13,17 +13,18 @@ module.exports = (entry, customConfig = {}, props) => {
 
   // if is svelte file
   if (
-    isSvelteFile ||
+    isSvelteFile &&
     !fs.existsSync(path.resolve(process.cwd(), './main.js'))
   ) {
-    svelteAlias = {
-      SvelteEntry: path.resolve(process.cwd(), entry),
-    };
+    const entryContent = fs.readFileSync(path.resolve(process.cwd(), entry), {
+      encoding: 'utf-8',
+    });
 
     entry = './entry.js';
     plugins.push(
       new VirtualModulesPlugin({
-        './entry.js': `import App from "SvelteEntry";
+        './svelte-cli-entry.svelte': entryContent,
+        './entry.js': `import App from "./svelte-cli-entry.svelte";
           ${
             customConfig.mode === 'production' && customConfig.customElement
               ? ''
@@ -49,7 +50,6 @@ module.exports = (entry, customConfig = {}, props) => {
       resolve: {
         ...config.resolve,
         alias: {
-          ...svelteAlias,
           svelte: path.resolve(__dirname, '../node_modules/svelte'),
         },
       },

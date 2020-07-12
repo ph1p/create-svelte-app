@@ -25,11 +25,11 @@ module.exports = (cb, customConfig) => {
         }
       : {},
     resolveLoader: {
-      modules: [path.resolve(__dirname, './node_modules')],
+      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
     },
     resolve: {
       extensions: ['.mjs', '.js', '.svelte'],
-      modules: [path.resolve(__dirname, './node_modules')],
+      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
       mainFields: ['svelte', 'browser', 'module', 'main'],
     },
     output: {
