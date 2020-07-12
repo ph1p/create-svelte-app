@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
+const pkg = require('../package.json');
 const { createCommand, buildCommand, serveCommand } = require('../commands');
 
 const program = require('commander');
@@ -10,12 +11,14 @@ const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 program
-  .version('0.0.1')
+  .version(pkg.version)
   .description('a simple CLI to manage and develop svelte apps');
 
 program
   .command('serve [path]')
-  .description('Serve a project or a single .svelte file (default entrypoint is ./src/main.js)')
+  .description(
+    'Serve a project or a single .svelte file (default entrypoint is ./src/main.js)'
+  )
   .option(
     '-m, --mode <type>',
     'Set mode (development|production)',
