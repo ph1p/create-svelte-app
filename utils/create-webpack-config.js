@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-var VirtualModulesPlugin = require('webpack-virtual-modules');
+const VirtualModulesPlugin = require('webpack-virtual-modules');
 const webpackConfig = require('../webpack.config');
 
 module.exports = (entry, customConfig = {}, props) => {
@@ -21,7 +21,7 @@ module.exports = (entry, customConfig = {}, props) => {
     plugins.push(
       new VirtualModulesPlugin({
         './svelte-cli-entry.svelte': entryContent,
-        './entry.js': `import App from "./svelte-cli-entry.svelte";
+        './entry.js': `import App from "CreateSvelteApp";
           ${
             customConfig.mode === 'production' && customConfig.customElement
               ? ''
@@ -45,6 +45,7 @@ module.exports = (entry, customConfig = {}, props) => {
       resolve: {
         ...config.resolve,
         alias: {
+          CreateSvelteApp: './svelte-cli-entry.svelte',
           svelte: path.resolve(__dirname, '../node_modules/svelte'),
         },
       },
