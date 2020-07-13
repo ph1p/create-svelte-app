@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const VirtualModulesPlugin = require('webpack-virtual-modules');
 const webpackConfig = require('../webpack.config');
+const { alias } = require('commander');
 
 module.exports = (entry, customConfig = {}, props) => {
   let isSvelteFile = entry && entry.indexOf('.svelte') >= 0;
@@ -13,15 +14,14 @@ module.exports = (entry, customConfig = {}, props) => {
 
   // if is svelte file
   if (isSvelteFile && !fs.existsSync('./main.js')) {
-    const entryContent = fs.readFileSync(entry, {
-      encoding: 'utf-8',
-    });
+    svelteAlias = {
+      'create-svelte-app-entry-point': path.resolve(entry),
+    };
 
     entry = './entry.js';
     plugins.push(
       new VirtualModulesPlugin({
-        './svelte-cli-entry.svelte': entryContent,
-        './entry.js': `import App from "./svelte-cli-entry.svelte";
+        './entry.js': `import App from "create-svelte-app-entry-point";
           ${
             customConfig.mode === 'production' && customConfig.customElement
               ? ''
@@ -45,6 +45,7 @@ module.exports = (entry, customConfig = {}, props) => {
       resolve: {
         ...config.resolve,
         alias: {
+          ...svelteAlias,
           svelte: path.resolve(__dirname, '../node_modules/svelte'),
         },
       },
