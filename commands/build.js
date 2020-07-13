@@ -1,3 +1,4 @@
+const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const createWebpackConfig = require('../utils/create-webpack-config');
@@ -6,6 +7,8 @@ module.exports = (
   entry = './src/main.js',
   { mode, props, title, customElement }
 ) => {
+  entry = path.resolve(process.cwd(), entry);
+
   if (entry && !fs.existsSync(entry) && entry.indexOf('.svelte') === -1) {
     console.error('Please make sure your entry exists (.js or .svelte)!');
     return;

@@ -1,13 +1,15 @@
+const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const createWebpackConfig = require('../utils/create-webpack-config');
 
-module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
+module.exports = (entry = './src/main.js', { mode, props, port, title }) => {
+  entry = path.resolve(process.cwd(), entry);
+
   if (
-    filepath &&
-    !fs.existsSync(filepath) &&
-    filepath.indexOf('.svelte') === -1
+    !fs.existsSync(entry) ||
+    (entry.indexOf('.svelte') === -1 && entry.indexOf('.js') === -1)
   ) {
     console.error('Please make sure your entry exists (.js or .svelte)!');
     return;
@@ -24,7 +26,7 @@ module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
   }
 
   let config = createWebpackConfig(
-    filepath,
+    entry,
     {
       mode,
       title,
@@ -39,7 +41,7 @@ module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
     noInfo: true,
     watchContentBase: true,
     compress: true,
-    contentBase: './dist',
+    contentBase: path.resolve(process.cwd(), './dist'),
     stats: {
       all: false,
     },

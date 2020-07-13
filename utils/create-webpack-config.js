@@ -15,7 +15,7 @@ module.exports = (entry, customConfig = {}, props) => {
   // if is svelte file
   if (isSvelteFile && !fs.existsSync('./main.js')) {
     svelteAlias = {
-      'create-svelte-app-entry-point': path.resolve(entry),
+      'create-svelte-app-entry-point': path.resolve(process.cwd(), entry),
     };
 
     entry = './entry.js';
