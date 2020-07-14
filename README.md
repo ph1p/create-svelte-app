@@ -4,12 +4,6 @@ This CLI provides you a way to create, build and serve your svelte app. Under th
 
 ```bash
 npm i create-svelte-app -g
-
-# yarn
-yarn add global create-svelte-app
-
-# or
-yarn create svelte-app serve PATH.svelte
 ```
 
 ### How to use

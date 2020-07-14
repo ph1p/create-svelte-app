@@ -28,6 +28,7 @@ export default (cb, customConfig) => {
       modules: [
         path.resolve(__dirname, '../node_modules'),
         path.resolve(process.cwd(), './node_modules'),
+        path.resolve(process.cwd()),
         path.dirname(entry)
       ],
     },
@@ -36,6 +37,7 @@ export default (cb, customConfig) => {
       modules: [
         path.resolve(__dirname, '../node_modules'),
         path.resolve(process.cwd(), './node_modules'),
+        path.resolve(process.cwd()),
         path.dirname(entry)
       ],
       mainFields: ['svelte', 'browser', 'module', 'main'],
