@@ -7,6 +7,9 @@ npm i create-svelte-app -g
 
 # yarn
 yarn add global create-svelte-app
+
+# or
+yarn create svelte-app serve PATH.svelte
 ```
 
 ### How to use

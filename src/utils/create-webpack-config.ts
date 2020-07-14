@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import webpackConfig from '../webpack.config';
@@ -6,13 +7,14 @@ export default (entry, customConfig: any = {}, props) => {
   let isSvelteFile = entry && entry.indexOf('.svelte') >= 0;
   let svelteAlias = {};
   let plugins: any[] = [];
+  let sveltePath = path.resolve(__dirname, '../node_modules/svelte/');;
 
   console.log('Entry:', entry);
 
   // if is svelte file
   if (isSvelteFile) {
     svelteAlias = {
-      'create-svelte-app-entry-point': path.resolve(process.cwd(), entry),
+      'create-svelte-app-entry-point$': path.resolve(process.cwd(), entry),
     };
 
     entry = './entry.js';
@@ -34,6 +36,10 @@ export default (entry, customConfig: any = {}, props) => {
     );
   }
 
+  if (fs.existsSync(sveltePath)) {
+    sveltePath = path.resolve(__dirname, '../../../node_modules/svelte/');
+  }
+
   return webpackConfig(
     (config) => ({
       ...config,
@@ -43,7 +49,7 @@ export default (entry, customConfig: any = {}, props) => {
         ...config.resolve,
         alias: {
           ...svelteAlias,
-          svelte: path.resolve(__dirname, '../node_modules/svelte'),
+          sveltePath,
         },
       },
     }),

@@ -1,5 +1,4 @@
 import typescript from 'rollup-plugin-typescript2';
-import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
@@ -17,7 +16,6 @@ export default {
     allowHashBang: true,
   },
   plugins: [
-    resolve(),
     json(),
     typescript(),
     replace({

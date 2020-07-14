@@ -1,6 +1,6 @@
 {
   "name": "create-svelte-app",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "bin": {
     "svelte": "./dist/cli.js",
     "create-svelte-app": "./dist/cli.js"
@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@types/commander": "^2.12.2",
     "@types/webpack-dev-server": "^3.11.0",
