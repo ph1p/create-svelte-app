@@ -36,7 +36,6 @@ export const serveCommand = (entry = './src/main.js', { mode, props, port, title
 
   const devOptions = {
     port,
-    hot: true,
     host: 'localhost',
     noInfo: true,
     watchContentBase: true,

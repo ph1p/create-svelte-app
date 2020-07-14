@@ -7,7 +7,7 @@ import autoPreprocess from 'svelte-preprocess';
 let mode = process.env.NODE_ENV || 'development';
 
 export default (cb, customConfig) => {
-  const { title, customElement, ...config } = customConfig;
+  const { title, entry, customElement, ...config } = customConfig;
 
   if (config.mode) {
     mode = config.mode;
@@ -25,11 +25,19 @@ export default (cb, customConfig) => {
       }
       : {},
     resolveLoader: {
-      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
+      modules: [
+        path.resolve(__dirname, '../node_modules'),
+        path.resolve(process.cwd(), './node_modules'),
+        path.dirname(entry)
+      ],
     },
     resolve: {
       extensions: ['.mjs', '.js', '.svelte'],
-      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
+      modules: [
+        path.resolve(__dirname, '../node_modules'),
+        path.resolve(process.cwd(), './node_modules'),
+        path.dirname(entry)
+      ],
       mainFields: ['svelte', 'browser', 'module', 'main'],
     },
     output: {
@@ -45,7 +53,6 @@ export default (cb, customConfig) => {
           use: {
             loader: 'svelte-loader',
             options: {
-              dev: !prod,
               customElement: customConfig.customElement,
               preprocess: autoPreprocess({}),
               emitCss: true,
