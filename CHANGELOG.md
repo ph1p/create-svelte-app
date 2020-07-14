@@ -1,5 +1,12 @@
+## <small>1.2.1 (2020-07-14)</small>
+
+* fix(workflow): remove needs key ([1323e5f](https://github.com/ph1p/create-svelte-app/commit/1323e5f))
+
+
+
 ## 1.2.0 (2020-07-14)
 
+* 1.2.0 ([e7d9a53](https://github.com/ph1p/create-svelte-app/commit/e7d9a53))
 * build(changelog): add conventional changelog ([c05cad2](https://github.com/ph1p/create-svelte-app/commit/c05cad2))
 * feat(typescript): start to rewrite cli with typescript ([8d3a0e4](https://github.com/ph1p/create-svelte-app/commit/8d3a0e4))
 
