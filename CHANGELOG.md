@@ -1,5 +1,12 @@
+## <small>1.2.4 (2020-07-14)</small>
+
+* fix(resolve): add fix for path resolving ([55c04e8](https://github.com/ph1p/create-svelte-app/commit/55c04e8))
+
+
+
 ## <small>1.2.1 (2020-07-14)</small>
 
+* 1.2.1 ([5f190bb](https://github.com/ph1p/create-svelte-app/commit/5f190bb))
 * fix(workflow): remove needs key ([1323e5f](https://github.com/ph1p/create-svelte-app/commit/1323e5f))
 
 
