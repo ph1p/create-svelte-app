@@ -1,10 +1,10 @@
-const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
-const createWebpackConfig = require('../utils/create-webpack-config');
+import path from 'path';
+import fs from 'fs';
+import webpack from 'webpack';
+import webpackDevServer from 'webpack-dev-server';
+import createWebpackConfig from '../utils/create-webpack-config';
 
-module.exports = (entry = './src/main.js', { mode, props, port, title }) => {
+export const serveCommand = (entry = './src/main.js', { mode, props, port, title }) => {
   entry = path.resolve(process.cwd(), entry);
 
   if (

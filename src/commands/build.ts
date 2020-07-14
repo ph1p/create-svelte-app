@@ -1,9 +1,9 @@
-const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
-const createWebpackConfig = require('../utils/create-webpack-config');
+import path from 'path';
+import fs from 'fs';
+import webpack from 'webpack';
+import createWebpackConfig from '../utils/create-webpack-config';
 
-module.exports = (
+export const buildCommand = (
   entry = './src/main.js',
   { mode, props, title, customElement }
 ) => {

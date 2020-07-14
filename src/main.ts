@@ -1,17 +1,8 @@
-#!/usr/bin/env node
-const path = require('path');
-const webpack = require('webpack');
-const fs = require('fs');
-const pkg = require('../package.json');
-const { createCommand, buildCommand, serveCommand } = require('../commands');
-
-const program = require('commander');
-
-const mode = process.env.NODE_ENV || 'development';
-const prod = mode === 'production';
+import program from 'commander';
+import { createCommand, buildCommand, serveCommand } from './commands';
 
 program
-  .version(pkg.version)
+  .version('VERSION')
   .description('a simple CLI to manage and develop svelte apps');
 
 program
@@ -31,7 +22,7 @@ program
   )
   .option('-ce, --custom-element', 'Serve as custom element', false)
   .option('-t, --title <string>', 'HTML-Page Title', 'Svelte-App')
-  .option('-p, --port <number>', 'Application port', 3000)
+  .option('-p, --port <number>', 'Application port', '3000')
   .action(function (path, env) {
     serveCommand(path, env);
   });

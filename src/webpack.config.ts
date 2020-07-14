@@ -1,12 +1,12 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const path = require('path');
-const autoPreprocess = require('svelte-preprocess');
+import path from 'path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import autoPreprocess from 'svelte-preprocess';
 
 let mode = process.env.NODE_ENV || 'development';
 
-module.exports = (cb, customConfig) => {
+export default (cb, customConfig) => {
   const { title, customElement, ...config } = customConfig;
 
   if (config.mode) {
@@ -20,9 +20,9 @@ module.exports = (cb, customConfig) => {
     entry: [],
     optimization: prod
       ? {
-          minimize: true,
-          minimizer: [new TerserPlugin()],
-        }
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+      }
       : {},
     resolveLoader: {
       modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
@@ -78,14 +78,14 @@ module.exports = (cb, customConfig) => {
 
   <body></body>
   ${
-    customConfig.customElement
-      ? `<script>
+          customConfig.customElement
+            ? `<script>
     if (typeof customElements === 'undefined') {
       document.body.innerHTML = '<p>This browser does not support custom elements. See <a href="https://caniuse.com/#feat=custom-elementsv1">caniuse.com</a> for the gory details.</p>';
     }
   </script>`
-      : ''
-  }
+            : ''
+          }
 </html>
         `,
       }),

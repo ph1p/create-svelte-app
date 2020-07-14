@@ -1,16 +1,15 @@
 name: Publish to npm
 
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [created]
 
 jobs:
   release:
-    if: github.event.base_ref == 'refs/heads/master'
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Make stable release to npm
         uses: epeli/npm-release@v1
         with:

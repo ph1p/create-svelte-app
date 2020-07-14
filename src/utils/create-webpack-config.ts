@@ -1,19 +1,16 @@
-const path = require('path');
-const fs = require('fs');
-const VirtualModulesPlugin = require('webpack-virtual-modules');
-const webpackConfig = require('../webpack.config');
-const { alias } = require('commander');
+import path from 'path';
+import VirtualModulesPlugin from 'webpack-virtual-modules';
+import webpackConfig from '../webpack.config';
 
-module.exports = (entry, customConfig = {}, props) => {
+export default (entry, customConfig: any = {}, props) => {
   let isSvelteFile = entry && entry.indexOf('.svelte') >= 0;
   let svelteAlias = {};
-
-  plugins = [];
+  let plugins: any[] = [];
 
   console.log('Entry:', entry);
 
   // if is svelte file
-  if (isSvelteFile && !fs.existsSync('./main.js')) {
+  if (isSvelteFile) {
     svelteAlias = {
       'create-svelte-app-entry-point': path.resolve(process.cwd(), entry),
     };
@@ -23,9 +20,9 @@ module.exports = (entry, customConfig = {}, props) => {
       new VirtualModulesPlugin({
         './entry.js': `import App from "create-svelte-app-entry-point";
           ${
-            customConfig.mode === 'production' && customConfig.customElement
-              ? ''
-              : `
+          customConfig.mode === 'production' && customConfig.customElement
+            ? ''
+            : `
           const app = new App({
             target: document.body,
             props: ${JSON.stringify(props)}
