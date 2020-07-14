@@ -1,5 +1,13 @@
+## <small>1.2.5 (2020-07-14)</small>
+
+* refactor: remove yarn from readme ([774a9c2](https://github.com/ph1p/create-svelte-app/commit/774a9c2))
+* fix(path): resolve node_modules and fix hot reload ([3c4f963](https://github.com/ph1p/create-svelte-app/commit/3c4f963))
+
+
+
 ## <small>1.2.4 (2020-07-14)</small>
 
+* 1.2.4 ([12902d4](https://github.com/ph1p/create-svelte-app/commit/12902d4))
 * fix(resolve): add fix for path resolving ([55c04e8](https://github.com/ph1p/create-svelte-app/commit/55c04e8))
 
 
