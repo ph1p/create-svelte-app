@@ -1,5 +1,12 @@
+## 1.3.0 (2021-08-03)
+
+* chore: update dependencies and fix a small bug on serving custom element ([36624da](https://github.com/ph1p/create-svelte-app/commit/36624da))
+
+
+
 ## <small>1.2.5 (2020-07-14)</small>
 
+* 1.2.5 ([602ffa6](https://github.com/ph1p/create-svelte-app/commit/602ffa6))
 * refactor: remove yarn from readme ([774a9c2](https://github.com/ph1p/create-svelte-app/commit/774a9c2))
 * fix(path): resolve node_modules and fix hot reload ([3c4f963](https://github.com/ph1p/create-svelte-app/commit/3c4f963))
 
