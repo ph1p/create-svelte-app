@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
@@ -20,6 +20,7 @@ export default {
     typescript(),
     replace({
       VERSION: version,
+      preventAssignment: true,
     }),
     terser(),
   ],

@@ -13,7 +13,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "typeRoots": ["@types"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

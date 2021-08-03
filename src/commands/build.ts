@@ -35,18 +35,20 @@ export const buildCommand = (
   );
 
   webpack(config, (err, stats) => {
-    if (err || stats.hasErrors()) {
+    if (err || (stats && stats.hasErrors())) {
       console.log('Error');
     }
 
-    console.log(
-      stats.toString({
-        chunks: false,
-        colors: true,
-        entrypoints: false,
-        children: false,
-        modules: false,
-      })
-    );
+    if (stats) {
+      console.log(
+        stats.toString({
+          chunks: false,
+          colors: true,
+          entrypoints: false,
+          children: false,
+          modules: false,
+        })
+      );
+    }
   });
 };

@@ -20,16 +20,16 @@ export default (cb, customConfig) => {
     entry: [],
     optimization: prod
       ? {
-        minimize: true,
-        minimizer: [new TerserPlugin()],
-      }
+          minimize: true,
+          minimizer: [new TerserPlugin()],
+        }
       : {},
     resolveLoader: {
       modules: [
         path.resolve(__dirname, '../node_modules'),
         path.resolve(process.cwd(), './node_modules'),
         path.resolve(process.cwd()),
-        path.dirname(entry)
+        path.dirname(entry),
       ],
     },
     resolve: {
@@ -38,7 +38,7 @@ export default (cb, customConfig) => {
         path.resolve(__dirname, '../node_modules'),
         path.resolve(process.cwd(), './node_modules'),
         path.resolve(process.cwd()),
-        path.dirname(entry)
+        path.dirname(entry),
       ],
       mainFields: ['svelte', 'browser', 'module', 'main'],
     },
@@ -55,10 +55,15 @@ export default (cb, customConfig) => {
           use: {
             loader: 'svelte-loader',
             options: {
+              compilerOptions: {
+                dev: !prod,
+                customElement: customConfig.customElement,
+              },
+              dev: !prod,
               customElement: customConfig.customElement,
               preprocess: autoPreprocess({}),
-              emitCss: true,
-              hotReload: true,
+              emitCss: prod,
+              hotReload: !prod,
             },
           },
         },
@@ -68,6 +73,13 @@ export default (cb, customConfig) => {
             prod ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
           ],
+        },
+        {
+          // required to prevent errors from Svelte on Webpack 5+
+          test: /node_modules\/svelte\/.*\.mjs$/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
       ],
     },
@@ -87,14 +99,14 @@ export default (cb, customConfig) => {
 
   <body></body>
   ${
-          customConfig.customElement
-            ? `<script>
+    customConfig.customElement
+      ? `<script>
     if (typeof customElements === 'undefined') {
       document.body.innerHTML = '<p>This browser does not support custom elements. See <a href="https://caniuse.com/#feat=custom-elementsv1">caniuse.com</a> for the gory details.</p>';
     }
   </script>`
-            : ''
-          }
+      : ''
+  }
 </html>
         `,
       }),

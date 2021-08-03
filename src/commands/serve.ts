@@ -4,7 +4,10 @@ import webpack from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
 import createWebpackConfig from '../utils/create-webpack-config';
 
-export const serveCommand = (entry = './src/main.js', { mode, props, port, title }) => {
+export const serveCommand = (
+  entry = './src/main.js',
+  { mode, props, port, title, customElement }
+) => {
   entry = path.resolve(process.cwd(), entry);
 
   if (
@@ -30,6 +33,7 @@ export const serveCommand = (entry = './src/main.js', { mode, props, port, title
     {
       mode,
       title,
+      customElement,
     },
     propsObj
   );

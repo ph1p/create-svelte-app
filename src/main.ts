@@ -1,5 +1,7 @@
-import program from 'commander';
+import { Command } from 'commander';
 import { createCommand, buildCommand, serveCommand } from './commands';
+
+const program = new Command();
 
 program
   .version('VERSION')
