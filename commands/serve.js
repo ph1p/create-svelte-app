@@ -4,7 +4,10 @@ const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const createWebpackConfig = require('../utils/create-webpack-config');
 
-module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
+module.exports = (
+  filepath = './src/main.js',
+  { mode, props, port, title, html, customElement }
+) => {
   if (
     filepath &&
     !fs.existsSync(filepath) &&
@@ -29,6 +32,8 @@ module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
     {
       mode,
       title,
+      html,
+      customElement,
     },
     propsObj
   );
@@ -38,22 +43,19 @@ module.exports = (filepath = './src/main.js', { mode, props, port, title }) => {
     hot: true,
     host: 'localhost',
     noInfo: true,
+    clientLogLevel: 'silent',
     watchContentBase: true,
     compress: true,
+    publicPath: path.resolve(process.cwd(), 'dist'),
     contentBase: path.resolve(process.cwd(), 'dist'),
-    stats: {
-      all: false,
-    },
   };
 
   webpackDevServer.addDevServerEntrypoints(config, devOptions);
 
   const compiler = webpack(config);
-  const server = new webpackDevServer(compiler, devOptions);
+  const server = new webpackDevServer(compiler);
 
   server.listen(devOptions.port);
 
-  console.log(
-    `\nSvelte app runs on port http://localhost:${devOptions.port} !\n`
-  );
+  console.log(`\nSvelte app started!\n`);
 };

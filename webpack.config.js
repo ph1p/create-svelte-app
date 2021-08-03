@@ -1,3 +1,4 @@
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -13,6 +14,26 @@ module.exports = (cb, customConfig) => {
     mode = config.mode;
   }
 
+  let templateContent = `<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width">
+      <meta charset="utf-8" />
+      <title>${customConfig.title}</title>
+    </head>
+
+    <body></body>
+    ${
+      customConfig.customElement
+        ? `<script>
+      if (typeof customElements === 'undefined') {
+        document.body.innerHTML = '<p>This browser does not support custom elements. See <a href="https://caniuse.com/#feat=custom-elementsv1">caniuse.com</a> for the gory details.</p>';
+      }
+    </script>`
+        : ''
+    }
+  </html>`;
+
   const prod = mode === 'production';
 
   return cb({
@@ -25,11 +46,17 @@ module.exports = (cb, customConfig) => {
         }
       : {},
     resolveLoader: {
-      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
+      modules: [
+        path.resolve(__dirname, './node_modules'),
+        path.resolve(process.cwd(), './node_modules'),
+      ],
     },
     resolve: {
       extensions: ['.mjs', '.js', '.svelte'],
-      modules: [path.resolve(__dirname, './node_modules'), path.resolve(process.cwd(), './node_modules')],
+      modules: [
+        path.resolve(__dirname, './node_modules'),
+        path.resolve(process.cwd(), './node_modules'),
+      ],
       mainFields: ['svelte', 'browser', 'module', 'main'],
     },
     output: {
@@ -45,11 +72,14 @@ module.exports = (cb, customConfig) => {
           use: {
             loader: 'svelte-loader',
             options: {
+              compilerOptions: {
+                dev: !prod,
+                customElement: customConfig.customElement,
+              },
               dev: !prod,
-              customElement: customConfig.customElement,
               preprocess: autoPreprocess({}),
-              emitCss: true,
-              hotReload: true,
+              emitCss: prod,
+              hotReload: !prod,
             },
           },
         },
@@ -60,6 +90,13 @@ module.exports = (cb, customConfig) => {
             'css-loader',
           ],
         },
+        {
+          // required to prevent errors from Svelte on Webpack 5+
+          test: /node_modules\/svelte\/.*\.mjs$/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
       ],
     },
     plugins: [
@@ -68,26 +105,7 @@ module.exports = (cb, customConfig) => {
       }),
       new HtmlWebpackPlugin({
         minify: true,
-        templateContent: `<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width">
-    <meta charset="utf-8" />
-    <title>${customConfig.title}</title>
-  </head>
-
-  <body></body>
-  ${
-    customConfig.customElement
-      ? `<script>
-    if (typeof customElements === 'undefined') {
-      document.body.innerHTML = '<p>This browser does not support custom elements. See <a href="https://caniuse.com/#feat=custom-elementsv1">caniuse.com</a> for the gory details.</p>';
-    }
-  </script>`
-      : ''
-  }
-</html>
-        `,
+        templateContent,
       }),
     ],
     devtool: prod ? false : 'source-map',

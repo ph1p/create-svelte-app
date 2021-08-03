@@ -15,7 +15,9 @@ program
 
 program
   .command('serve [path]')
-  .description('Serve a project or a single .svelte file (default entrypoint is ./src/main.js)')
+  .description(
+    'Serve a project or a single .svelte file (default entrypoint is ./src/main.js)'
+  )
   .option(
     '-m, --mode <type>',
     'Set mode (development|production)',
